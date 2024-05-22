@@ -1,80 +1,31 @@
 #!/bin/bash
 
 location=$(pwd)
-read -p "Enter heasoft tarball name: " hea_file
+read -p "Enter heasoft tarball name: " hea_file 
+if [ "${hea_file}" == "" ]
+then
+    echo "File name cannot be blank"
+    exit 1 2>/dev/null
+fi
+
+if [ "${hea_file}" != "*.tar.gz" ]
+then
+    hea_file="${hea_file}.tar.gz"
+fi
+
+packages=(libreadline-dev libncurses5-dev ncurses-dev curl libcurl4 libcurl4-gnutls-dev xorg-dev make gcc g++ gfortran perl-modules python3-dev python3-pip python3-setuptools python3-astropy python3-numpy python3-scipy python3-matplotlib)
 
 echo "Updating packages..."
 sudo apt update && sudo apt -y upgrade >> install.log
 echo "Packages updated successfully"
 
 echo "Installing required dependencies..."
-echo "Installing libreadline-dev..."
-sudo apt-get -y install libreadline-dev >> install.log
-echo "libreadline-dev installed"
-
-echo "Installing libncurses5-dev..."
-sudo apt-get -y install libncurses5-dev >> install.log
-echo "libncurses5-dev installed"
-
-echo "Installing ncurses-dev..."
-sudo apt-get -y install ncurses-dev >> install.log
-echo "ncurses-dev installed"
-
-echo "Installing curl..."
-sudo apt-get -y install curl >> install.log
-echo "curl installed"
-
-echo "Installing libcurl4..."
-sudo apt-get -y install libcurl4 >> install.log
-echo "libcurl4 installed"
-
-echo "Installing libcurl4-gnutls-dev..."
-sudo apt-get -y install libcurl4-gnutls-dev >> install.log
-echo "libcurl4-gnutls-dev installed"
-
-echo "Installing xorg-dev..."
-sudo apt-get -y install xorg-dev >> install.log
-echo "xorg-dev installed"
-
-echo "Installing make..."
-sudo apt-get -y install make >> install.log
-echo "make installed"
-
-echo "Installing gcc g++ gfortran..."
-sudo apt-get -y install gcc g++ gfortran >> install.log
-echo "gcc g++ gfortran installed"
-
-echo "Installing perl-modules..."
-sudo apt-get -y install perl-modules >> install.log
-echo "perl-modules installed"
-
-echo "Installing python3-dev..."
-sudo apt-get -y install python3-dev >> install.log
-echo "python3-dev installed"
-
-echo "Installing python3-pip..."
-sudo apt-get -y install python3-pip >> install.log
-echo "python3-pip installed"
-
-echo "Installing python3-setuptools..."
-sudo apt-get -y install python3-setuptools >> install.log
-echo "python3-setuptools installed"
-
-echo "Installing python3-astropy..."
-sudo apt-get -y install python3-astropy >> install.log
-echo "python3-astropy installed"
-
-echo "Installing python3-numpy..."
-sudo apt-get -y install python3-numpy >> install.log
-echo "python3-numpy installed"
-
-echo "Installing python3-scipy..."
-sudo apt-get -y install python3-scipy >> install.log
-echo "python3-scipy installed"
-
-echo "Installing python3-matplotlib..."
-sudo apt-get -y install python3-matplotlib >> install.log
-echo "python3-matplotlib installed"
+for package in "${packages[@]}"
+do
+    echo "Installing ${package}..."
+    sudo apt-get install -y "${package}"
+    echo "${package} installed"
+done
 
 echo "Defining environment variables..."
 export CC=/usr/bin/gcc
@@ -99,7 +50,7 @@ if [ "$configure_check" = "Finished" ]; then
     echo "Configuration successful"
 else
     echo "Configuration unsuccessful. Terminating..."
-    return 1 2>/dev/null
+    exit 1 2>/dev/null
 fi
 
 echo "Compiling files. This can take upto an hour depending on the system and much longer if you are using WSL..."
@@ -111,7 +62,7 @@ if [ "$compile_check" = "Finished make all" ]; then
     echo "Compilation successful"
 else
     echo "Compilation unsuccessful. Terminating..."
-    return 1 2>/dev/null
+    exit 1 2>/dev/null
 fi
 
 echo "Installing. This can take up to 30 minutes or more depending on the system and even more if you are using WSL..."
@@ -122,7 +73,7 @@ if [ "$install_check" = "Finished make install" ]; then
     echo "Installation successful"
 else
     echo "Installation unsuccessful. Terminating..."
-    return 1 2>/dev/null
+    exit 1 2>/dev/null
 fi
 
 cd ../x86_64*
