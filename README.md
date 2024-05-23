@@ -3,6 +3,21 @@
 This is a shell script which enables the user to automatically install heasoft in an ubuntu or any debian based operating system.
 
 The instructions to install are as follows:
+
+### version - 1.24.01 (latest)
+
+- Download the latest release of `install-heasoft.sh`
+- Make the script executable using
+  > ```comsole
+  > ``` chmod u+x install-heasoft.sh
+  > ```
+- Run it. *Note: You will be asked for your super user password*
+  > ```console
+  > ``` ./install-heasoft.sh
+  > ```
+
+### version - 1.24.01
+
 - Download heasoft from NASA's official website. To do so...
 - - Go to the [heasoft download link](https://heasarc.gsfc.nasa.gov/docs/software/heasoft/download.html)
   - Select source code and select **PC - Linux - Ubuntu**. Do not select any pre-compiled binary distributions
@@ -56,5 +71,5 @@ The instructions to install are as follows:
   > ```
 The script will ask for your sudo password as well as the name of the heasoft tarball file that you downloaded. Supply them when prompted
 
-### NOTE: The diretory where you will be installing heasoft whould only coontain the downloaded heasoft tarball and the shell script before execution of the file.
-#### This restriction will be lifted in future releases
+*** NOTE: The diretory where you will be installing heasoft whould only coontain the downloaded heasoft tarball and the shell script before execution of the file. ***
+* This restriction will be lifted in future releases *
