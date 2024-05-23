@@ -83,7 +83,7 @@ chmod u+x headas-init.sh
 headas_path=$(pwd)
 
 echo "Modifying .bashrc..."
-echo -e "\n#heasoft\n\nHEADAS=\"${headas_path}\"\n. \"\$HEADAS/headas-init.sh\"" >> ~/.bashrc
+echo -e "\n#heasoft\n\nexport HEADAS=\"${headas_path}\"\n. \"\$HEADAS/headas-init.sh\"" >> ~/.bashrc
 . ~/.bashrc
 
 hea_version=$(fversion)
