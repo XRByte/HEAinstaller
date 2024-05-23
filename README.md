@@ -8,10 +8,12 @@ The instructions to install are as follows:
 
 - Download the latest release of `install-heasoft.sh`
 - Make the script executable using
+  
   > ```comsole
   >  chmod u+x install-heasoft.sh
   > ```
 - Run it. *Note: You will be asked for your super user password*
+  
   > ```console
   >  ./install-heasoft.sh
   > ```
