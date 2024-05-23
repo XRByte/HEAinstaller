@@ -4,7 +4,7 @@ This is a shell script which enables the user to automatically install heasoft i
 
 The instructions to install are as follows:
 - Download heasoft from NASA's official website. To do so...
-- - Go to the [headoft download link](https://heasarc.gsfc.nasa.gov/docs/software/heasoft/download.html)
+- - Go to the [heasoft download link](https://heasarc.gsfc.nasa.gov/docs/software/heasoft/download.html)
   - Select source code and select **PC - Linux - Ubuntu**. Do not select any pre-compiled binary distributions
   - Select the desired packages and click on **Submit**
 - *heasoft-6.33.2src.tar.gz* will be downloaded. ***Note: This version is 6.33.2. It can be an older or an updated version. In that case, the filename would read as heasoft-\<version\>src.tar.gz***
