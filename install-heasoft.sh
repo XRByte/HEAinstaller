@@ -109,7 +109,7 @@ fi
 
 echo "Configuring heasoft..."
 cd $hea_dir/BUILD_DIR/
-./configure >> $location/install.log 2>&1
+./configure # >> $location/install.log 2>&1
 configure_check=$(tail -n 1 $location/install.log)
 
 if [ "$configure_check" = "Finished" ]; then
@@ -120,7 +120,7 @@ else
 fi
 
 echo "Compiling files. This can take upto an hour depending on the system and much longer if you are using WSL..."
-make >> $location/install.log 2>&1
+make # >> $location/install.log 2>&1
 compile_check=$(tail -n 1 $location/install.log)
 echo $compile_check
 
@@ -132,7 +132,7 @@ else
 fi
 
 echo "Installing. This can take up to 30 minutes or more depending on the system and even more if you are using WSL..."
-make install >> $location/install.log 2>&1
+make install # >> $location/install.log 2>&1
 install_check=$(tail -n 1 $location/install.log)
 
 if [ "$install_check" = "Finished make install" ]; then
@@ -150,8 +150,8 @@ headas_path=$(pwd)
 
 echo "Modifying .bashrc..."
 echo -e "\n#heasoft\n\nexport HEADAS=\"${headas_path}\"\nsource \"\$HEADAS/headas-init.sh\"" >> ~/.bashrc
-source ~/.bashrc
+source $HOME/.bashrc
 
 hea_version=$(fversion)
 echo "Heasoft version: ${hea_version} installed successfully"
-rm ~/heasoft/heasoft.tar.gz
+rm $HOME/heasoft/heasoft.tar.gz
