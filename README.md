@@ -13,6 +13,7 @@ The instructions to install are as follows:
   >  chmod u+x install-heasoft.sh
   > ```
 - Run it. *Note: You will be asked for your super user password*
+  You will also be prompted if you want the installation process output to be dumped in an extra log file. The default value is "no" and is used if there is no input
   
   > ```console
   >  ./install-heasoft.sh
