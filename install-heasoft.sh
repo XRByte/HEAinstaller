@@ -1,5 +1,20 @@
 #!/bin/bash
 
+
+echo "Do you want to create a log file where all output will be dumped (Default is no)? [yes/no]"
+read log_status
+if [ -z "$log_status" ]
+then
+    log_status="no"
+fi
+
+if [ "$log_status" == "no" ] || [ "$log_status" == "yes" ]
+then
+    :
+else
+    echo "Invalid input!"
+fi
+
 echo "Updating packages..."
 sudo apt update && sudo apt -y upgrade >> install.log
 echo "Packages updated successfully"
@@ -109,37 +124,46 @@ fi
 
 echo "Configuring heasoft..."
 cd $hea_dir/BUILD_DIR/
-./configure # >> $location/install.log 2>&1
-configure_check=$(tail -n 1 $location/install.log)
+if [ "$log_status" == "yes" ]
+then
+    ./configure >> $location/install.log 2>&1
+    configure_check=$(tail -n 1 $location/install.log)
 
-if [ "$configure_check" = "Finished" ]; then
-    echo "Configuration successful"
+    if [ "$configure_check" = "Finished" ]; then
+        echo "Configuration successful"
+    else
+        echo "Configuration unsuccessful. Terminating..."
+        exit 1 2>/dev/null
+    fi
+
+    echo "Compiling files. This can take upto an hour depending on the system and much longer if you are using WSL..."
+    make >> $location/install.log 2>&1
+    compile_check=$(tail -n 1 $location/install.log)
+    echo $compile_check
+
+    if [ "$compile_check" = "Finished make all" ]; then
+        echo "Compilation successful"
+    else
+        echo "Compilation unsuccessful. Terminating..."
+        exit 1 2>/dev/null
+    fi
+
+    echo "Installing. This can take up to 30 minutes or more depending on the system and even more if you are using WSL..."
+    make install >> $location/install.log 2>&1
+    install_check=$(tail -n 1 $location/install.log)
+
+    if [ "$install_check" = "Finished make install" ]; then
+        echo "Installation successful"
+    else
+        echo "Installation unsuccessful. Terminating..."
+        exit 1 2>/dev/null
+    fi
 else
-    echo "Configuration unsuccessful. Terminating..."
-    exit 1 2>/dev/null
-fi
-
-echo "Compiling files. This can take upto an hour depending on the system and much longer if you are using WSL..."
-make # >> $location/install.log 2>&1
-compile_check=$(tail -n 1 $location/install.log)
-echo $compile_check
-
-if [ "$compile_check" = "Finished make all" ]; then
-    echo "Compilation successful"
-else
-    echo "Compilation unsuccessful. Terminating..."
-    exit 1 2>/dev/null
-fi
-
-echo "Installing. This can take up to 30 minutes or more depending on the system and even more if you are using WSL..."
-make install # >> $location/install.log 2>&1
-install_check=$(tail -n 1 $location/install.log)
-
-if [ "$install_check" = "Finished make install" ]; then
-    echo "Installation successful"
-else
-    echo "Installation unsuccessful. Terminating..."
-    exit 1 2>/dev/null
+    ./configure
+    echo "Compiling files. This can take upto an hour depending on the system and much longer if you are using WSL..."
+    make
+    echo "Installing. This can take up to 30 minutes or more depending on the system and even more if you are using WSL..."
+    make install
 fi
 
 cd ../x86_64*
@@ -150,8 +174,8 @@ headas_path=$(pwd)
 
 echo "Modifying .bashrc..."
 echo -e "\n#heasoft\n\nexport HEADAS=\"${headas_path}\"\nsource \"\$HEADAS/headas-init.sh\"" >> ~/.bashrc
-source $HOME/.bashrc
+source ~/.bashrc
 
 hea_version=$(fversion)
 echo "Heasoft version: ${hea_version} installed successfully"
-rm $HOME/heasoft/heasoft.tar.gz
+rm ~/heasoft/heasoft.tar.gz
