@@ -173,9 +173,9 @@ chmod u+x headas-init.sh
 headas_path=$(pwd)
 
 echo "Modifying .bashrc..."
-echo -e "\n#heasoft\n\nexport HEADAS=\"${headas_path}\"\nsource \"\$HEADAS/headas-init.sh\"" >> ~/.bashrc
-source ~/.bashrc
+echo -e "\n#heasoft\n\nexport HEADAS=\"${headas_path}\"\nsource \"\$HEADAS/headas-init.sh\"" >> $HOME/.bashrc
+source $HOME/.bashrc
 
 hea_version=$(fversion)
 echo "Heasoft version: ${hea_version} installed successfully"
-rm ~/heasoft/heasoft.tar.gz
+rm $HOME/heasoft/heasoft.tar.gz
