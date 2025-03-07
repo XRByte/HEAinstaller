@@ -11,6 +11,10 @@
 - **Python** ≥ 3.8
 - An active **Conda/Virtual Environment**
 - **tqdm** installed in the environment
+  
+  > ```console
+  > pip install tqdm
+  > ```
 - A **display server** like *Xorg (X11) / Wayland* for GUI-based tools (Ensure that the `$DISPLAY` environment variable is initialized)
 
 ### Setting Up an Environment
