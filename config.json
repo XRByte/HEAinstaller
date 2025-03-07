@@ -1,0 +1,391 @@
+{
+  "set_flags": ["CC", "CXX", "PERL", "FC", "PYTHON"],
+  "unset_flags": ["CFLAGS", "CXXFLAGS", "FFLAGS", "LDFLAGS"],
+  "positive_resp": ["y", "yes", "yo", "yeah", "yea", "yup", "true", "yep"],
+  "negative_resp": ["n", "no", "nope", "na", "nah", "false"],
+  "shell": {
+    "bash": {
+      "extension": "sh",
+      "config_file": ["$HOME .bashrc", "$HOME .bash_profile", "$HOME .profile"],
+      "env_cmd": "export HEADAS={}",
+      "alias": "alias heainit=\"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    },
+    "sh": {
+      "extension": "sh",
+      "config_file": ["$HOME .profile"],
+      "env_cmd": "export HEADAS={}",
+      "alias": "alias heainit=\"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    },
+    "zsh": {
+      "extension": "sh",
+      "config_file": ["$HOME .zshrc", "$HOME .zprofile"],
+      "env_cmd": "export HEADAS={}",
+      "alias": "alias heainit=\"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    },
+    "ksh": {
+      "extension": "sh",
+      "config_file": ["$HOME .kshrc", "$HOME .profile"],
+      "env_cmd": "export HEADAS={}",
+      "alias": "alias heainit=\"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    },
+    "dash": {
+      "extension": "sh",
+      "config_file": ["$HOME .profile"],
+      "env_cmd": "export HEADAS={}",
+      "alias": "alias heainit=\"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    },
+    "ash": {
+      "extension": "sh",
+      "config_file": ["$HOME .ashrc", "$HOME .profile"],
+      "env_cmd": "export HEADAS={}",
+      "alias": "alias heainit=\"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    },
+    "elvish": {
+      "extension": "sh",
+      "config_file": [
+        "$HOME .elvish rc.elv",
+        "$XDG_CONFIG_HOME elvish rc.elv",
+        "$HOME .config elvish rc.elv"
+      ],
+      "env_cmd": "add-var HEADAS = {}",
+      "alias": "fn heainit { {};pset fhelp text=no online=yes }",
+      "source": "eval (slurp < {})"
+    },
+    "csh": {
+      "extension": "csh",
+      "config_file": ["$HOME .cshrc", "$HOME .login"],
+      "env_cmd": "setenv HEADAS {}",
+      "alias": "alias heainit \"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    },
+    "tcsh": {
+      "extension": "csh",
+      "config_file": ["$HOME .tcshrc", "$HOME .cshrc", "$HOME .login"],
+      "env_cmd": "setenv HEADAS {}",
+      "alias": "alias heainit \"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    },
+    "fish": {
+      "extension": "csh",
+      "config_file": [
+        "$HOME .config fish conf.d",
+        "$HOME .config fish config.fish"
+      ],
+      "env_cmd": "set -x HEADAS {}",
+      "alias": "alias heainit \"{};pset fhelp text=no online=yes\"",
+      "source": ". {}"
+    }
+  },
+  "darwin": {
+    "compilers": ["clang", "clang++", "perl", "gfortran-14", "python3"],
+    "package_manager": {
+      "port": {
+        "initializer": "xcode-select --install",
+        "update": "sudo port  selfupdate",
+        "upgrade": "sudo port upgrade outdated",
+        "packages": ["gcc14", "libpng", "aria2", "python", "py-pip"],
+        "install_cmd": "sudo port install",
+        "link": "mac_arm_darwin24"
+      },
+      "brew": {
+        "initializer": "xcode-select --install",
+        "update": "brew update",
+        "upgrade": "brew upgrade",
+        "packages": ["gcc@14", "libpng", "aria2", "python", "xquartz", "xorg-server"],
+        "install_cmd": "brew install",
+        "link": "mac_arm_darwin24"
+      }
+    },
+    "py_manager": {
+      "conda": {
+        "libraries": ["astropy", "numpy", "scipy", "matplotlib", "pip"],
+        "install_cmd": "conda install"
+      },
+      "pip": {
+        "libraries": ["astropy", "numpy", "scipy", "matplotlib"],
+        "install_cmd": "pip install"
+      }
+    }
+  },
+  "linux": {
+    "compilers": ["gcc", "g++", "perl", "gfortran", "python3"],
+    "package_manager": {
+      "apt": {
+        "update": "sudo apt update -y",
+        "upgrade": "sudo apt upgrade -y",
+        "packages": [
+          "libreadline-dev",
+          "libncurses5-dev",
+          "ncurses-dev",
+          "curl",
+          "libcurl4",
+          "libcurl4-gnutls-dev",
+          "xorg-dev",
+          "make",
+          "gcc",
+          "g++",
+          "gfortran",
+          "perl-modules",
+          "libdevel-checklib-perl",
+          "libfile-which-perl",
+          "python3-dev",
+          "python3-setuptools",
+          "python3-pip",
+          "aria2"
+        ],
+        "install_cmd": "sudo apt -y install",
+        "link": "pc_linux_debian"
+      },
+      "dnf": {
+        "update": "sudo dnf check-update -y",
+        "upgrade": "sudo dnf upgrade -y",
+        "packages": [
+          "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm",
+          "redhat-rpm-config",
+          "readline-devel",
+          "ncurses-devel",
+          "zlib-devel",
+          "libcurl-devel",
+          "libXt-devel",
+          "make",
+          "gcc",
+          "gcc-c++",
+          "gcc-fortran",
+          "perl-devel",
+          "perl-DirHandle",
+          "perl-Env",
+          "perl-ExtUtils-MakeMaker",
+          "perl-File-Which",
+          "python3-devel",
+          "python3-pip",
+          "--refresh aria2"
+        ],
+        "install_cmd": "sudo dnf -y install",
+        "link": "pc_linux_redhat"
+      },
+      "yum": {
+        "update": "sudo yum update -y",
+        "upgrade": "sudo yum upgrade -y",
+        "packages": [
+          "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm",
+          "redhat-rpm-config",
+          "readline-devel",
+          "ncurses-devel",
+          "zlib-devel",
+          "libcurl-devel",
+          "libXt-devel",
+          "make",
+          "gcc",
+          "gcc-c++",
+          "gcc-gfortran",
+          "perl-devel",
+          "perl-CPAN",
+          "perl-File-Which",
+          "perl-Env",
+          "perl-ExtUtils-MakeMaker",
+          "python3-devel",
+          "python3-pip",
+          "--refresh aria2"
+        ],
+        "install_cmd": "sudo yum -y install",
+        "link": "pc_linux_fedora"
+      },
+      "pacman": {
+        "update": "sudo pacman -Sy --noconfirm",
+        "upgrade": "sudo pacman -Su --noconfirm",
+        "packages": [
+          "base-devel",
+          "readline",
+          "ncurses",
+          "zlib",
+          "xorg-server",
+          "curl",
+          "libxt",
+          "gcc-fortran",
+          "gcc",
+          "perl",
+          "perl-file-which",
+          "perl-extutils-makemaker",
+          "python",
+          "python-pip",
+          "aria2"
+        ],
+        "install_cmd": "sudo pacman -Sy --noconfirm",
+        "link": "pc_linux_arch"
+      },
+      "zypper": {
+        "update": "sudo zypper refresh",
+        "upgrade": "sudo zypper update -y",
+        "packages": [
+          "readline-devel",
+          "ncurses-devel",
+          "zlib-devel",
+          "libcurl-devel",
+          "libXt-devel",
+          "make",
+          "gcc",
+          "gcc-c++",
+          "gcc-fortran",
+          "perl",
+          "perl-Devel-CheckLib",
+          "perl-ExtUtils-MakeMaker",
+          "perl-File-Which",
+          "python3-devel",
+          "python3-pip",
+          "aria2"
+        ],
+        "install_cmd": "sudo zypper install -y",
+        "link": "pc_linux_suse"
+      },
+      "apk": {
+        "update": "sudo apk update",
+        "upgrade": "sudo apk upgrade",
+        "packages": [
+          "build-base",
+          "readline-dev",
+          "ncurses-dev",
+          "zlib-dev",
+          "curl-dev",
+          "tcl-dev",
+          "tcl",
+          "tk",
+          "tk-dev",
+          "libxt-dev",
+          "gfortran",
+          "perl",
+          "perl-dev",
+          "perl-file-which",
+          "python3-dev",
+          "py3-pip",
+          "aria2"
+        ],
+        "install_cmd": "sudo apk add",
+        "link": "pc_linux_redhat"
+      },
+      "xbps-install": {
+        "update": "sudo xbps-install -Sy",
+        "upgrade": "sudo xbps-install -uy",
+        "packages": [
+          "base-devel",
+          "readline-devel",
+          "ncurses-devel",
+          "zlib-devel",
+          "libcurl-devel",
+          "libXt-devel",
+          "make",
+          "gcc",
+          "gcc-fortran",
+          "perl",
+          "perl-Devel-CheckLib",
+          "perl-ExtUtils-MakeMaker",
+          "perl-File-Which",
+          "python3-devel",
+          "python3-pip",
+          "aria2"
+        ],
+        "install_cmd": "sudo xbps-install -Sy",
+        "link": "pc_linux_redhat"
+      },
+      "emerge": {
+        "update": "sudo emerge --sync",
+        "upgrade": "sudo emerge -uDN @world",
+        "packages": [
+          "sys-devel/gcc",
+          "sys-devel/gcc-config",
+          "dev-build/make",
+          "sys-devel/binutils",
+          "sys-libs/readline",
+          "sys-libs/ncurses",
+          "sys-libs/zlib",
+          "net-misc/curl",
+          "x11-libs/libXt",
+          "dev-lang/perl",
+          "dev-perl/Devel-CheckLib",
+          "dev-perl/File-Which",
+          "dev-python/pip",
+          "dev-python/setuptools",
+          "virtual/fortran",
+          "net-misc/aria2"
+        ],
+        "install_cmd": "sudo emerge",
+        "link": "pc_linux_gentoo"
+      }
+    },
+    "py_manager": {
+      "conda": {
+        "libraries": ["astropy", "numpy", "scipy", "matplotlib", "pip"],
+        "install_cmd": "conda install"
+      },
+      "pip": {
+        "libraries": ["astropy", "numpy", "scipy", "matplotlib"],
+        "install_cmd": "pip install"
+      }
+    }
+  },
+  "mission": {
+    "ASCA": "asca",
+    "Einstein": "einstein",
+    "EXOSAT": "exosat",
+    "CGRO": "gro",
+    "HEAO-1": "heao1",
+    "Hitomi": "hitomi",
+    "INTEGRAL": "integral",
+    "IXPE": "ixpe",
+    "MAXI": "maxi",
+    "NICER": "nicer",
+    "NuSTAR": "nustar",
+    "OSO-8": "oso",
+    "ROSAT": "rosat",
+    "Suzaku": "suzaku",
+    "Swift": "swift",
+    "Vela": "vela",
+    "XRISM": "xrism",
+    "XTE": "xte"
+  },
+  "general": {
+    "Attitude": "attitude",
+    "Caltools": "caltools",
+    "Futils": "futils",
+    "Fimage": "fimage",
+    "HEASARC": "heasarc",
+    "HEASim": "heasim",
+    "HEASPtools": "heasptools",
+    "HEATools": "heatools",
+    "HEAGen": "heagen",
+    "FV": "fv",
+    "Time": "timepkg"
+  },
+  "xanadu": {
+    "Ximage": "ximage",
+    "Xronos": "xronos",
+    "Xspec": "xspec"
+  },
+  "xstar": {
+    "xstar": "xstar"
+  },
+  "extras": {
+    "tclreadline": {
+      "packages": ["libtool", "automake", "autoconf", "tcl-dev"],
+      "paths": [
+        ["/usr", "lib"],
+        ["/usr", "lib64"],
+        ["/usr", "local", "lib"],
+        ["/usr", "local", "lib64"],
+        ["/lib"]
+      ],
+      "config_cmd": [
+        ["libtoolize", "--force"],
+        ["aclocal"],
+        ["autoconf"],
+        ["automake", "--add-missing"]
+      ],
+      "install_cmd": [["./configure"], ["make"], ["sudo", "make", "install"]]
+    }
+  }
+}

@@ -1,0 +1,5 @@
+*.md
+*.txt
+*.log
+**/temp
+**/log

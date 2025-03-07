@@ -1,0 +1,43 @@
+{
+  "mission": {
+    "ASCA": "yes",
+    "Einstein": "yes",
+    "EXOSAT": "yes",
+    "CGRO": "yes",
+    "HEAO-1": "yes",
+    "Hitomi": "yes",
+    "INTEGRAL": "yes",
+    "IXPE": "yes",
+    "MAXI": "yes",
+    "NICER": "yes",
+    "NuSTAR": "yes",
+    "OSO-8": "yes",
+    "ROSAT": "yes",
+    "Suzaku": "yes",
+    "Swift": "yes",
+    "Vela": "yes",
+    "XRISM": "yes",
+    "XTE": "yes"
+  },
+  "general": {
+    "Attitude": "yes",
+    "Caltools": "yes",
+    "Futils": "yes",
+    "Fimage": "yes",
+    "HEASARC": "yes",
+    "HEASim": "yes",
+    "HEASPtools": "yes",
+    "HEATools": "yes",
+    "HEAGen": "yes",
+    "FV": "yes",
+    "Time": "yes"
+  },
+  "xanadu": {
+    "Ximage": "yes",
+    "Xronos": "yes",
+    "Xspec": "yes"
+  },
+  "xstar": {
+    "xstar": "yes"
+  }
+}
