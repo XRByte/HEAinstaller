@@ -243,11 +243,12 @@ class Heainstall:
             )
 
         # Install python library dependencies
+        self.py_incmd = os.environ.get("PIP_CMD", " ".join(self.py_incmd))
         for py_lib in self.py_lib:
             self.__run_pipeloader(
                 "installer.log",
                 f"Installing {py_lib.split()[0]}",
-                *self.py_incmd,
+                *self.py_incmd.split(),
                 *py_lib.split(),
             )
         print("\nAll dependencies installed")

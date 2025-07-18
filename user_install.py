@@ -11,6 +11,7 @@ if os.name == "nt":
 else:
     pip_path = os.path.join(env_dir, "bin", "pip")
     python_path = os.path.join(env_dir, "bin", "python")
+    os.environ["PIP_CMD"] = f"{pip_path} install"
 
 if not os.path.exists(python_path):
     builder = venv.EnvBuilder(with_pip=True)
@@ -22,8 +23,10 @@ try:
     subprocess.check_call([pip_path, "install"] + packages)
 except subprocess.CalledProcessError:
     print(f"Unable to install {', '.join(packages)}. Please proceed manually.")
+    sys.exit()
     
 try:
     subprocess.check_call([python_path, "heainstaller.py"])
 except subprocess.CalledProcessError:
     print("Unable to run heainstaller.py. Please run the script manually")
+    sys.exit()
