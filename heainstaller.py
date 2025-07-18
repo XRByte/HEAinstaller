@@ -38,6 +38,7 @@ try:
     from tqdm import tqdm
 except ImportError:
     print("tqdm not installed. Please install tqdm before proceeding.")
+    sys.exit()
 
 
 class Heainstall:
