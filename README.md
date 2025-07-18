@@ -95,7 +95,7 @@ python3 heainstaller.py
 
 <table>
   <thead>
-    <tr><th>Platform</th><th>Versions</th></tr>
+    <tr><th>Platform</th><th>Version/Distribution</th></tr>
   </thead>
   <tbody>
     <tr><td>macOS (Darwin)</td><td>Sequoia, Sonoma, Ventura</td></tr>
