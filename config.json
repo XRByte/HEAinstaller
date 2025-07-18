@@ -70,16 +70,6 @@
       "env_cmd": "setenv HEADAS {}",
       "alias": "alias heainit \"{};pset fhelp text=no online=yes\"",
       "source": ". {}"
-    },
-    "fish": {
-      "extension": "csh",
-      "config_file": [
-        "$HOME .config fish conf.d",
-        "$HOME .config fish config.fish"
-      ],
-      "env_cmd": "set -x HEADAS {}",
-      "alias": "alias heainit \"{};pset fhelp text=no online=yes\"",
-      "source": ". {}"
     }
   },
   "darwin": {
@@ -97,7 +87,14 @@
         "initializer": "xcode-select --install",
         "update": "brew update",
         "upgrade": "brew upgrade",
-        "packages": ["gcc@14", "libpng", "aria2", "python", "xquartz", "xorg-server"],
+        "packages": [
+          "gcc@14",
+          "libpng",
+          "aria2",
+          "python",
+          "xquartz",
+          "xorg-server"
+        ],
         "install_cmd": "brew install",
         "link": "mac_arm_darwin24"
       }
@@ -198,7 +195,7 @@
       },
       "pacman": {
         "update": "sudo pacman -Sy --noconfirm",
-        "upgrade": "sudo pacman -Su --noconfirm",
+        "upgrade": "sudo pacman -Sy --noconfirm",
         "packages": [
           "base-devel",
           "readline",

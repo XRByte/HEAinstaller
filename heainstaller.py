@@ -12,11 +12,11 @@ Dependencies:
     - Python >= 3.8
     - Required libraries: tqdm
 
-Author: Anish Sarkar
+Author: XRByte
 Email: sarkar.anish.1001@gmail.com
 Date Created: 26-01-2025
-Last Modified: 07-03-2025
-Version: 2.25.03
+Last Modified: 18-07-2025
+Version: 2.25.07
 
 Notes:
     Progress bars used are approximate measures of progress
@@ -34,7 +34,10 @@ import stat
 import time
 import json
 import readline
-from tqdm import tqdm
+try:
+    from tqdm import tqdm
+except ImportError:
+    print("tqdm not installed. Please install tqdm before proceeding.")
 
 
 class Heainstall:
@@ -109,9 +112,10 @@ class Heainstall:
             else:
                 print(
                     "No supported shell found for running heasoft.\n"
-                    f"Supported shells: {config['shell'].keys()}\nExiting..."
+                    f"Supported shells: {config['shell'].keys()}\nHeasoft initialization"
+                    f"lines will not be present in {shell}. Please add them manually to"
+                    "a compatible shell"
                 )
-                sys.exit()
 
             # Gets necessary dependancy & package manager information
             ops = config[self.platform]
@@ -172,13 +176,14 @@ class Heainstall:
 
         # Sets some other necessary variables
         self.home_dir = os.path.expandvars("$HOME")
-        self.hea_dir = os.path.join(self.home_dir, "bin", "heasoft")
+        self.hea_dir = os.path.join(self.home_dir, ".local", "bin", "heasoft")
+        self.download_dir = os.path.join(self.home_dir, ".cache")
         self.download = True
-        self.total_size = 3_435_973_837
+        self.total_size = 4_333_973_837
         self.hea_file = "heasoft.tar.gz"
 
         # Makes heasoft installation directory if not present
-        os.makedirs(os.path.join(self.home_dir, "bin", "heasoft"), exist_ok=True)
+        os.makedirs(self.hea_dir, exist_ok=True)
         os.chdir(self.hea_dir)
 
         # Initializes log files
@@ -308,10 +313,12 @@ class Heainstall:
         """Downloads heasoft tarball"""
 
         if self.download:
+            os.makedirs(self.download_dir, exist_ok=True)
+            
             # Checks if file already exists
             file = self.hea_file
-            if os.path.exists(file):
-                os.remove(file)
+            if os.path.exists(os.path.join(self.download_dir, file)):
+                os.remove(os.path.join(self.download_dir, file))
 
             # Downloads file
             print(
@@ -320,13 +327,15 @@ class Heainstall:
             self.__run_pipeline(
                 self.total_size,
                 "installer.log",
-                file,
+                os.path.join(self.download_dir, file),
                 "Downloading",
                 1,
                 "Download",
                 "file_size",
                 "B",
                 "aria2c",
+                "-d",
+                self.download_dir,
                 "-q",
                 "--log-level=error",
                 "-x",
@@ -491,7 +500,6 @@ class Heainstall:
 
     def run(self) -> None:
         """Runs setup"""
-
         os.chdir(self.hea_dir)
 
         # Runs instructions
@@ -500,7 +508,11 @@ class Heainstall:
         self.config_environ()
         self.check_download()
         self.download_heasoft()
-        self.extract_targz(self.hea_file)
+        download_file = os.path.join(self.home_dir, ".cache", self.hea_file)
+        if not self.download:
+            download_file = os.path.join(self.heafile)
+            
+        self.extract_targz(download_file)
 
         # Checks for heasoft download directory
         try:
@@ -662,7 +674,7 @@ class Heainstall:
         """
 
         # Loading animation glyphs
-        glyphs = ["|", "/", "-", "\\"]
+        glyphs = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
         error_file = os.path.join(self.hea_dir, "error.log")
 
         # Runs subprocess with logging

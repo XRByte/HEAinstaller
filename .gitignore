@@ -1,5 +1,42 @@
+# Ignore Markdown, text, and log files
 *.md
 *.txt
 *.log
-**/temp
-**/log
+
+# Ignore temp and log directories at any depth
+**/temp/
+**/log/
+
+# Ignore any directory starting with "temp" (e.g., temp_env, temp123)
+**/temp*/
+
+# Ignore Python cache files and folders
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore virtual environments
+venv/
+.env/
+env/
+.temp_env/
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore output and build directories
+build/
+dist/
+*.egg-info/
+
+# Optional: ignore test coverage reports
+htmlcov/
+.coverage
+coverage.xml
