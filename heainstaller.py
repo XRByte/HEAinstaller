@@ -502,6 +502,7 @@ class Heainstall:
 
     def run(self) -> None:
         """Runs setup"""
+            
         os.chdir(self.hea_dir)
 
         # Runs instructions
@@ -512,7 +513,7 @@ class Heainstall:
         self.download_heasoft()
         download_file = os.path.join(self.home_dir, ".cache", self.hea_file)
         if not self.download:
-            download_file = os.path.join(self.heafile)
+            download_file = os.path.join(self.hea_file)
             
         self.extract_targz(download_file)
 
